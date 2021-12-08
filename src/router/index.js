@@ -4,22 +4,34 @@ import HomeView from '../views/HomeView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
+    component: HomeView,
+  },
+  {
+    path: '/movies',
+    name: 'Movies',
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/tv',
+    name: 'TV Shows',
+    component: () => import(/* webpackChunkName: "shows" */ '../views/TvShowsView.vue')
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: () => import(/* webpackChunkName: "auth" */ '../views/AuthView.vue')
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = `TESTFLIX: ${to.name}`;
+  next();
 })
 
 export default router
